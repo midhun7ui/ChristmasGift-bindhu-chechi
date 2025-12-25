@@ -1,0 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;700&display=swap');
+
+:root {
+    --red-xmas: #E74C3C;
+    --green-xmas: #27AE60;
+    --gold-xmas: #F1C40F;
+    --dark-bg: #1B0B2B;
+    --light-text: #ECF0F1;
+    --shadow-red: #A93226;
+    --shadow-green: #1F8D4E;
+}
+
+body {
+    margin: 0;
+    background: linear-gradient(135deg, var(--dark-bg) 0%, #301934 100%);
+    color: var(--light-text);
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Full container for the card experience */
+#xmas-card-app {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+/* Initial Landing Screen */
+#landing-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    text-align: center;
+    background: var(--dark-bg);
+    padding: 20px;
+}
+
+#landing-screen h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(3rem, 8vw, 6rem);
+    color: var(--gold-xmas);
+    text-shadow: 0 0 10px rgba(241, 196, 15, 0.7);
+    margin-bottom: 20px;
+}
+
+/* Lottie Character Positioning */
+#lottie-character {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    bottom: 5%;
+    left: 5%;
+    z-index: 90;
+}
+
+/* Three.js Book Container */
+#book-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+}
+
+/* Gift Box Overlay */
+#gift-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    height: 250px;
+    background-color: var(--red-xmas);
+    border: 8px solid var(--gold-xmas);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 80;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    cursor: pointer; 
+}
+
+#gift-box p {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2em;
+    color: var(--light-text);
+}
+
+/* Buttons */
+.primary-btn {
+    padding: 15px 30px;
+    margin-top: 15px;
+    background: linear-gradient(90deg, var(--red-xmas), var(--green-xmas));
+    color: var(--light-text);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+.primary-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+.tts-btn {
+    background: var(--gold-xmas);
+    color: #333;
+    box-shadow: 0 5px 15px var(--shadow-red);
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+}
+.tts-btn:hover {
+    box-shadow: 0 8px 20px var(--shadow-red);
+}
+
+
+/* Snow effect styling for GSAP */
+.snowflake {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    pointer-events: none;
+    filter: blur(0.5px);
+}
+
+/* Message Pages Container */
+#book-messages-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    width: 400px;
+    height: 500px;
+    background: #FDFEFE;
+    color: #333;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 70;
+    overflow: hidden; /* Crucial for page sliding */
+}
+
+.book-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    overflow-y: auto;
+}
+
+#page-1, #page-2, #page-3 {
+    transform: translateX(100%); 
+}
+.active-page {
+    transform: translateX(0%); 
+}
+
+#book-messages-container h2 {
+    font-family: 'Great Vibes', cursive;
+    color: var(--red-xmas);
+    font-size: 2.5em;
+    margin-top: 0;
+    text-align: center;
+    width: 100%;
+}
+
+/* Puzzle and Recipe styling */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.p-4 { padding: 1rem; }
+.bg-yellow-100 { 
+    background-color: #FEF9E7; 
+    width: 100%; 
+    border-radius: 0.5rem;
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06); 
+}
+.mt-4 { margin-top: 1rem; }
+.mt-6 { margin-top: 1.5rem; }
+.text-xl { font-size: 1.25rem; }
+.font-bold { font-weight: bold; }
+.mb-4 { margin-bottom: 1rem; }
+.text-sm { font-size: 0.875rem; }
+.text-red-600 { color: var(--red-xmas); }
+.transition-opacity { transition-property: opacity; }
+.duration-500 { transition-duration: 500ms; }
+.opacity-0 { opacity: 0; }
+.recipe-input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid var(--red-xmas);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+.recipe-output {
+    margin-top: 15px;
+    padding: 15px;
+    background: #fff;
+    border: 1px dashed var(--green-xmas);
+    border-radius: 8px;
+    min-height: 100px;
+    white-space: pre-wrap;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    overflow-y: auto;
+}
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--green-xmas);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    display: none;
+    margin: 0 auto;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* Final Message Overlay */
+#final-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 80vw;
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--dark-bg);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 90;
+}
+#final-message span {
+    display: block;
+    font-size: 4em;
+    margin-bottom: 20px;
+}
